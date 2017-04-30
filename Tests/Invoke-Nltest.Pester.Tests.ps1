@@ -7,7 +7,7 @@ Import-Module $ModulePath -Force
 Describe $ModuleName {
     
     #Integration test. Run on domain-joined machine
-    Context 'Functionality' {
+    Context 'Integration tests' {
 
         if ((Get-WmiObject Win32_ComputerSystem).DomainRole -in (0,2)) {
             Write-Host "Skipping tests; current host is not joined to a domain"
