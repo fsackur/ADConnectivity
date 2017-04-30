@@ -22,7 +22,10 @@ if (-not (Test-Path .git)) {
 
 #Add pre-commit hook if not present; there's no way to automatically update this in a cloned repo.
 if (-not (Test-Path .\.git\hooks\pre-commit)) {
-    "powershell -NoProfile -ExecutionPolicy Bypass -File '`$GIT_DIR\..\Private\Pre-Commit.ps1'" > .\.git\hooks\pre-commit
+@'
+#!/bin/sh
+powershell -NoProfile -ExecutionPolicy Bypass -File '$GIT_DIR\..\Hooks\Pre-Commit.ps1'
+'@ | Out-File .\.git\hooks\pre-commit -Encoding ascii
 }
 
 
