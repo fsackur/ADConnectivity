@@ -140,9 +140,6 @@ function Test-DnsServer {
         [System.Collections.Generic.List[string]]$OutRecommendations
     )
 
-    $OutRecommendations.Add("hi")
-    return 
-
     $DnsResult = New-Object psobject -Property @{
         ValidServers = @();
         InvalidServers = @();
