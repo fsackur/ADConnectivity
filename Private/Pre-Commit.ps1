@@ -20,6 +20,12 @@ if (-not (Test-Path .git)) {
     exit 1
 }
 
+#Add pre-commit hook if not present; there's no way to automatically update this in a cloned repo.
+if (-not (Test-Path .\.git\hooks\pre-commit)) {
+    "powershell -NoProfile -ExecutionPolicy Bypass -File '`$GIT_DIR\..\Private\Pre-Commit.ps1'" > .\.git\hooks\pre-commit
+}
+
+
 $ManifestPath = ".\$ModuleName.psd1"
 
 #Get staged changes in .psd1 file
