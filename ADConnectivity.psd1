@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '0.7.0.12'
+ModuleVersion = '0.7.0.13'
 
 # ID used to uniquely identify this module
 GUID = 'a214d47b-b0a0-4fd4-9330-4fb93134adee'
@@ -71,7 +71,7 @@ NestedModules = @('.\Public\Formatting.psm1',
 
 # Functions to export from this module
 FunctionsToExport = 
-               'Add-DefaultMembers Invoke-Nltest Invoke-Nslookup Invoke-Portqry Test-DnsServer Test-AdPorts Test-ADConnectivity'
+               'Invoke-Nltest Invoke-Nslookup Invoke-Portqry Test-DnsServer Test-AdPorts Test-ADConnectivity'
 
 # Cmdlets to export from this module
 CmdletsToExport = @()
