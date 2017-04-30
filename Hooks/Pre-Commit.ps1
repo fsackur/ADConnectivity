@@ -2,11 +2,14 @@
 <#
     Contents of .git\hooks\pre-commit (no file extension):
 
-    powershell -NoProfile -ExecutionPolicy Bypass -File '$GIT_DIR\..\Private\Pre-Commit.ps1'
+    #!/bin/sh
+    powershell -NoProfile -ExecutionPolicy Bypass -File '$GIT_DIR\..\Hooks\Pre-Commit.ps1'
 
-    (This expects this file to be in Private subfolder of repo. Update accordingly)
+    (This expects the pre-commit.ps1 script to be in Hooks subfolder of repo. Update accordingly)
 
-    $GIT_DIR is a bash environment variable pointing to the .git folder. 'pre-commit' is a bash script.
+    $GIT_DIR is a bash environment variable pointing to the .git folder.
+    
+    'pre-commit' is a bash script and must be in ascii encoding with the #|/bin/sh line right at the top.
 
     The git hook fails the commit if exit code from this PS is non-zero.
 #>
