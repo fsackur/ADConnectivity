@@ -1,6 +1,17 @@
 ﻿#requires -Modules Formatting
 
-$Script:PortQryPath = "$PSScriptRoot\PortQry.exe" | where {Test-Path $_ -PathType Leaf} | select -First 1
+$Script:PortQryPath = (
+    "$PSScriptRoot\PortQry.exe",
+    "$PSScriptRoot\..\PortQry.exe",
+    "$PSScriptRoot\..\Packages\PortQry.exe",
+    "$PSScriptRoot\..\Packages\PortQryV2\PortQry.exe"
+) | where {Test-Path $_ -PathType Leaf} | select -First 1
+
+if (-not $PortQryPath) {
+    throw New-Object System.Management.Automation.ScriptRequiresException (
+        "Script $($PSScriptRoot + "\" + $MyInvocation.MyCommand) requires PortQry.exe to be in same folder, parent folder, or Packages folder in parent folder"
+    )
+}
 
 
 function Invoke-Portqry {
