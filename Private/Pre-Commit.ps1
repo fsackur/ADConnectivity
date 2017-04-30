@@ -8,3 +8,4 @@ $NewVersion = $ManifestVersion | %{New-Object version ($_.Major, $_.Minor, $_.Bu
 Write-Host $PSScriptRoot
 
 Update-ModuleManifest -Path .\ADConnectivity.psd1 -ModuleVersion $NewVersion
+git add .\ADConnectivity.psd1
