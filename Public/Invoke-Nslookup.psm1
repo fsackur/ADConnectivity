@@ -34,6 +34,8 @@ function Invoke-Nslookup {
     DC1.corp.dustyfox.uk              True
     Looks up the PDC of an AD domain against the DNS server corp.dustyfox.uk. Will use default resolvers first to find the DNS server
 #>
+    [CmdletBinding()]
+    [OutputType([Object[]])]
     param(
         [Parameter(Mandatory=$true, Position=0)]
         [string]$Domain,
@@ -98,7 +100,7 @@ function Invoke-Nslookup {
     $Output.ConnectionSuccess = -not $HasTimedOut
 
     $Output.Response = switch ($RecordType) {
-        "A"     {[string[]]([regex]::Matches($ResponseText, '(?:\d{1,3}\.){3}(?:\d{1,3})') | select -ExpandProperty Value)}
+        "A"     {[ipaddress[]]([regex]::Matches($ResponseText, '(?:\d{1,3}\.){3}(?:\d{1,3})') | select -ExpandProperty Value)}
         "SRV"   {[string[]]([regex]::Matches($ResponseText, '(?:svr hostname   = ([\S\.]*))') | select -ExpandProperty Groups | select -Skip 1 -ExpandProperty Value)}
         default {$ResponseText}
     }
