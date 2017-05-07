@@ -1,7 +1,13 @@
 
 $ModuleName = $MyInvocation.MyCommand -replace '\..*' #-replace 'Pester\.' -replace 'Tests\.' -replace 'ps1$', 'psm1'
-$ModulePath = "$PSScriptRoot\..\Public\$ModuleName"
+$ModulePath = "$PSScriptRoot\..\Private\$ModuleName.psm1"
+$RequiresLine = Get-Content $ModulePath | where {$_ -match '#requires'} | select -First 1
+$RequiredModuleNames = ($RequiresLine -replace '.*-Modules ' -replace ' -\w.*') -split ',\s*'
+$RequiredModuleNames | %{
+    Import-Module -Scope Local -Name $ModulePath\..\$_
+}
 Import-Module $ModulePath -Force
+
 
 
 Describe $ModuleName {
@@ -19,7 +25,7 @@ Describe $ModuleName {
         }
 
 
-        It 'Tests connection' -Pending:(-not $DomainJoined) {
+        It 'Tests TCP 88 to domain FQDN' -Pending:(-not $DomainJoined) {
             $Response.Success | Should Be $true
             $Response.Summary | Should BeExactly 'Listening on TCP-88'
             $Response.PortQryText | Should BeOfType string
@@ -31,3 +37,4 @@ Describe $ModuleName {
 }
 
 Remove-Module $ModuleName
+$RequiredModuleNames | Remove-Module

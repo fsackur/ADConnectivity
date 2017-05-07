@@ -63,10 +63,10 @@ TypesToProcess = @()
 FormatsToProcess = @()
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-NestedModules = @('.\Public\Formatting.psm1', 
-               '.\Public\Invoke-Nltest.psm1', 
-               '.\Public\Invoke-Nslookup.psm1', 
-               '.\Public\Invoke-Portqry.psm1', 
+NestedModules = @('.\Private\Formatting.psm1', 
+               '.\Private\Invoke-Nltest.psm1', 
+               '.\Private\Invoke-Nslookup.psm1', 
+               '.\Private\Invoke-Portqry.psm1', 
                '.\Public\ADConnectivity.psm1')
 
 # Functions to export from this module

@@ -1,6 +1,6 @@
 ﻿
 $ModuleName = $MyInvocation.MyCommand -replace '\..*' #-replace 'Pester\.' -replace 'Tests\.' -replace 'ps1$', 'psm1'
-$ModulePath = "$PSScriptRoot\..\Public\$ModuleName"
+$ModulePath = "$PSScriptRoot\..\Private\$ModuleName"
 Import-Module $ModulePath -Force
 
 

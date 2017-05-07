@@ -1,6 +1,6 @@
 
 $ModuleName = $MyInvocation.MyCommand -replace '\..*' #-replace 'Pester\.' -replace 'Tests\.' -replace 'ps1$', 'psm1'
-$ModulePath = "$PSScriptRoot\..\Public\$ModuleName"
+$ModulePath = "$PSScriptRoot\..\Private\$ModuleName"
 Import-Module $ModulePath -Force
 
 
@@ -18,7 +18,7 @@ Describe $ModuleName {
         }
 
         if (-not $DomainJoined) {
-            if (Test-Connection 8.8.8.8 -Quiet) {
+            if (Test-Connection 8.8.8.8 -Quiet -Count 1) {
                 $CanPing8888 = $true
             } else {
                 Write-Host "Skipping tests; current host can't ping 8.8.8.8"
