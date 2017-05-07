@@ -26,8 +26,13 @@ Describe $ModuleName {
         }
 
 
-        It 'Adds default sort properties' -Pending {
-            $MyObject | Add-DefaultMembers -SortProperties 'Material', 'Size'
+        It 'Adds default sort properties' {
+            $MyObject | Add-DefaultMembers -SortProperties 'ComfortLevel', 'Id'
+            $MyObject.PSStandardMembers.DefaultKeyPropertySet.ReferencedPropertyNames | Should BeExactly 'ComfortLevel', 'Id'
+        }
+
+
+        It 'Does not overwrite' {
             $MyObject.PSStandardMembers.DefaultDisplayPropertySet.ReferencedPropertyNames | Should BeExactly 'Material', 'Size'
         }
 
