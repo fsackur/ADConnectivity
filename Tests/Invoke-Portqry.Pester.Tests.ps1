@@ -4,10 +4,9 @@ $ModulePath = "$PSScriptRoot\..\Private\$ModuleName.psm1"
 $RequiresLine = Get-Content $ModulePath | where {$_ -match '#requires'} | select -First 1
 $RequiredModuleNames = ($RequiresLine -replace '.*-Modules ' -replace ' -\w.*') -split ',\s*'
 $RequiredModuleNames | %{
-    Import-Module -Scope Local -Name $ModulePath\..\$_
+    Import-Module -Name $ModulePath\..\$_
 }
 Import-Module $ModulePath -Force
-
 
 
 Describe $ModuleName {
