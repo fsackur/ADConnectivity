@@ -183,22 +183,18 @@ function Add-DefaultMembers {
         }
     
         #Create a 'default members' object from the display and sort property sets
-        if ($null -eq $InputObject.PSStandardMembers) {
-            [System.Management.Automation.PSMemberInfo[]]$PSStandardMembers = @()
-        } else {
-            [System.Management.Automation.PSMemberInfo[]]$PSStandardMembers = $InputObject.PSStandardMembers
-        }
+        [System.Management.Automation.PSMemberInfo[]]$PSStandardMembers = @()
 
         #Create a display property set
         if ($DisplayProperties) {
             $Display = New-Object System.Management.Automation.PSPropertySet('DefaultDisplayPropertySet', $DisplayProperties)
-            #$PSStandardMembers += $Display
+            $PSStandardMembers += $Display
         }
 
         #Create a sort property set
         if ($SortProperties) {
             $Sort = New-Object System.Management.Automation.PSPropertySet('DefaultKeyPropertySet', $SortProperties)
-            #$PSStandardMembers += $Sort
+            $PSStandardMembers += $Sort
         }
 
     }
@@ -210,15 +206,10 @@ function Add-DefaultMembers {
         if ($PSStandardMembers) {
             try {
                 #Add the default members
-                if ($null -eq ($InputObject | Get-Member PSStandardMembers)) {
-                    Add-Member -InputObject $InputObject -MemberType MemberSet -Name PSStandardMembers -Value ([System.Management.Automation.PSMemberInfo[]]@()) -Force -ErrorAction Stop
-                }
-                if ($Display) {
-                    Add-Member -InputObject $InputObject.PSStandardMembers -MemberType PropertySet -Name DefaultDisplayPropertySet -Value $Display -Force -ErrorAction Stop
-                }
+                Add-Member -InputObject $InputObject -MemberType MemberSet -Name PSStandardMembers -Value $PSStandardMembers -Force -ErrorAction Stop
             } catch {
                 #Provide more helpful exception if we cannot override the display on a .NET type
-                if ($_ -match 'Cannot force the member .* to be added. A member with that name and type already exists, and the existing member is not an instance extension.') {
+                if ($_ -match 'Cannot force the member with name "PSStandardMembers" and type "MemberSet" to be added. A member with that name and type already exists, and the existing member is not an instance extension.') {
                     throw (New-Object System.ArgumentException (
                         "Cannot add new default members to a fixed object type. Try running your input object through a select statement first."
                     ))

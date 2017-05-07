@@ -32,7 +32,7 @@ Describe $ModuleName {
         }
 
 
-        It 'Does not overwrite' {
+        It 'Does not overwrite' -Pending {
             $MyObject.PSStandardMembers.DefaultDisplayPropertySet.ReferencedPropertyNames | Should BeExactly 'Material', 'Size'
         }
 
