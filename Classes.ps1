@@ -7,3 +7,7 @@ $PRC = New-Object Dusty.Net.PortResultCollection
 $PRC.Add($PortResult1)
 $PRC.Add($PortResult2)
 $PRC.Add($PortResult3)
+
+Update-FormatData -AppendPath .\Dusty.Net.format.ps1xml
+Update-TypeData  -AppendPath .\Dusty.Net.types.ps1xml
+

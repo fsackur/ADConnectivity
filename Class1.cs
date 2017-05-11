@@ -58,7 +58,7 @@ namespace Dusty.Net
         }
         public void AddRange(PortResultCollection coll)
         {
-            foreach (var portResult in coll)
+            foreach (PortResult portResult in coll)
             {
                 Add(portResult);
             }
