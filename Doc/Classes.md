@@ -2,6 +2,7 @@
 
 #DomainMember
 Has:
+- IsLocalhost
 - Hostname
 - IP
 - State (Member/DC)
@@ -18,8 +19,7 @@ Does:
 - Test (requires access by remoting / WMI / etc or throws exception. Expected to be run on localmachine)
 
 It is expected that methods are only used on localhost:
-$Localhost = DomainMember.new()
-$Localhost.Initialise()
+$Localhost = DomainMember.new(IsLocalhost=$true)
 $Localhost.Test()
 
 
